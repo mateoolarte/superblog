@@ -1,0 +1,13 @@
+<% @posts.each do |post| %>
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <h2><%= link_to post.title, post_path(post.id) %></h2>
+      <span>
+        Publicado por 
+      </span>
+      <p>
+        <%= truncate(post.body, length: 250) %>
+      </p>
+    </div>
+  </div>
+<% end %>
