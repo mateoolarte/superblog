@@ -3,7 +3,28 @@
     <%= link_to "Volver", root_path %>
     <h1><%= @post.title %></h1>
     <p>
-      <%= @post.body %>
+      <%= markdown(@post.body) %>
     </p>
+    <h3><%= @post.comments.length >= 1 ? "Comentarios" : "Agrega el primer comentario" %></h3>
+    <% @post.comments.each do |comment| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><%= comment.user.email %></div>
+      <div class="panel-body">
+        <%= comment.body %>
+      </div>
+    </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= form_for [@post, @post.comments.build] do |f| %>
+        <div class="form-group">
+          <%= f.text_area :body, class: "form-control", placeholder: "Agregar comentario" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Comentar", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

@@ -37,8 +37,10 @@
     </div><!-- /.container -->
     </nav>
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if flash[:notice] %>
+        <div class="alert alert-info"><%= notice %></div>
+        <p class="alert"><%= alert %></p>
+      <% end %>  
       <%= yield %>
     </div>
   </body>

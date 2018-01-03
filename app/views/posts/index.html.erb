@@ -2,12 +2,19 @@
   <div class="row">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <h2><%= link_to post.title, post_path(post.id) %></h2>
+      <% author = User.find(post.user_id) %>
       <span>
-        Publicado por 
+        Publicado por <%= author.email %> <%= post.created_at %>
       </span>
       <p>
-        <%= truncate(post.body, length: 250) %>
+        <%= markdown(truncate(post.body, length: 250)) %>
       </p>
+      <% if user_signed_in? && current_user.id == post.user_id %>
+      <p>
+        <%= link_to "Editar", edit_post_path(post.id) %>
+        <%= link_to "Eliminar", post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este post?" } %>
+      </p>
+      <% end %>
     </div>
   </div>
 <% end %>
