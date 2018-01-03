@@ -36,10 +36,13 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
     </nav>
-    <div class="container">
+    <div class="container margin-bottom-50">
       <% if flash[:notice] %>
-        <div class="alert alert-info"><%= notice %></div>
-        <p class="alert"><%= alert %></p>
+        <div class="alert alert-info alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%= notice %>
+        </div>
+        <%# <p class="alert"><%= alert </p> %>
       <% end %>  
       <%= yield %>
     </div>
