@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  # before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :find_post, only: [:show, :edit, :update]
 
   def index
     @posts = Post.order("created_at DESC")
   end
   
   def show
-    @post = Post.find(params[:id])
   end
 
   def new
@@ -23,11 +23,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to posts_path, notice: "El post ha sido modificado con éxito"
     else
@@ -45,5 +43,9 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :body, :user_id)
+  end
+
+  def find_post
+    @post = Post.find(params[:id])
   end
 end
